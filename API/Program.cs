@@ -1,6 +1,7 @@
 
 using Application;
 using Infrastructure;
+using NLog.Web;
 
 namespace API
 {
@@ -18,6 +19,8 @@ namespace API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Logging.ClearProviders();
+            builder.Host.UseNLog();
           
 
             var app = builder.Build();
