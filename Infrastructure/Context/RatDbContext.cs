@@ -1,15 +1,20 @@
 using System.Reflection;
 using Domain.Aggregates;
+using Domain.Aggregates.Identity;
+using Domain.Aggregates.User;
 using Domain.Shared;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context;
 
-public class RatDbContext : DbContext, IRatDbContext
+public class RatDbContext : IdentityDbContext, IRatDbContext
 {
     public RatDbContext() { }
     public RatDbContext(DbContextOptions<RatDbContext> options) : base(options) { }
     
+    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<ClientUser> ClientUsers { get; set; }
     public virtual DbSet<Message> Messages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,7 +29,10 @@ public class RatDbContext : DbContext, IRatDbContext
         {
             optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
         }
-        
+
+        var connectionString =
+            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=IRatTest;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        optionsBuilder.UseSqlServer(connectionString);
         base.OnConfiguring(optionsBuilder);
     }
 
