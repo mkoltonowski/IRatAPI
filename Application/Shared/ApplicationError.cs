@@ -4,9 +4,9 @@ namespace Application.Shared;
 
 public record ApplicationError
 {
-    public ApplicationError(string messageTranslationKey)
+    public ApplicationError(string message)
     {
-        Message = messageTranslationKey;
+        Message = message;
     }
         
     public ApplicationError(HttpStatusCode httpStatusCode, string message)

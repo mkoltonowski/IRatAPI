@@ -7,7 +7,7 @@ namespace Application
 {
     public static class ApplicationServiceExtension
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static void AddApplicationServices(this IServiceCollection services)
         {
             // TODO: Implement automapper
             // services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -15,8 +15,6 @@ namespace Application
             {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
-
-            return services;
         }
     }
 }

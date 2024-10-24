@@ -1,7 +1,7 @@
 using System.Reflection;
 using Domain.Aggregates;
+using Domain.Aggregates.Account;
 using Domain.Aggregates.Identity;
-using Domain.Aggregates.User;
 using Domain.Shared;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,19 +21,6 @@ public class RatDbContext : IdentityDbContext, IRatDbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(RatDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (Environment.GetEnvironmentVariable("CONNECTION_STRING") is not null)
-        {
-            optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
-        }
-
-        var connectionString =
-            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=IRatTest;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-        optionsBuilder.UseSqlServer(connectionString);
-        base.OnConfiguring(optionsBuilder);
     }
 
     public override int SaveChanges(bool acceptAllChangesOnSuccess)

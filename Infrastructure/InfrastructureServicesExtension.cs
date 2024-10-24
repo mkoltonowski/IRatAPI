@@ -1,6 +1,7 @@
 ﻿using Application.Providers.Identity;
 using Domain.Aggregates.Identity;
 using Infrastructure.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,6 @@ public static class InfrastructureServicesExtension
         .AddUserManager<IdentityUserManager>()
         .AddDefaultTokenProviders();
     }
-
     
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {

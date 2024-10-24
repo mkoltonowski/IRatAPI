@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using Domain.Aggregates.Identity;
 using Domain.Shared;
 
-namespace Domain.Aggregates.User;
+namespace Domain.Aggregates.Account;
 
 public class ClientUser : IBaseAuditableEntity
 {
@@ -16,9 +17,8 @@ public class ClientUser : IBaseAuditableEntity
     [MaxLength(30), MinLength(2)]
     public string LastName { get; set; }
     
-    [Required]
-    public string Email { get; set; }
-    public string PhoneNumber { get; set; }
+    public string UserId { get; set; }
+    public virtual User User { get; set; }
     
     public bool IsBanned { get; set; }
     public DateTimeOffset BannedUntil { get; set; }
